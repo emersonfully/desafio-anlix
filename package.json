@@ -1,0 +1,23 @@
+{
+  "name": "desafio-anlix",
+  "version": "1.0.0",
+  "description": "**Sobre o desafio**",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/emersonfully/desafio-anlix.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/emersonfully/desafio-anlix/issues"
+  },
+  "homepage": "https://github.com/emersonfully/desafio-anlix#readme",
+  "dependencies": {
+    "express": "^4.18.2"
+  }
+}
