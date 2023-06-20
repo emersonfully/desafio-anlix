@@ -121,7 +121,20 @@ app.get('/patient/:cpf/health_metric/:metric/value-range/:min/:max', (req, res) 
     });
 });
 
+// Endpoint 6: Get patients with a name or partial name
+app.get('/patients/name/:name', (req, res) => {
+    const { name } = req.params;
+    const sql = "SELECT * FROM patients WHERE nome LIKE ?";
+    db.all(sql, [`%${name}%`], (err, rows) => {
+        if (err) {
+            return res.status(500).json({ error: err.message });
+        }
+        return res.json(rows);
+    });
+});
 
+
+// Start the server
 app.listen(port, () => {
     console.log(`Server running on http://localhost:${port}`)
 })
