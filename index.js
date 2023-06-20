@@ -81,9 +81,45 @@ app.get('/patient/:cpf/latest_metrics', (req, res) => {
         if (err) {
             return res.status(500).json({ error: err.message })
         }
-        return res.json(row)
-    })
-})
+        return res.json(row);
+    });
+});
+
+// Endpoint 3: get all health metrics for all patients on a specific date
+app.get('/data/:date', (req, res) => {
+    const { date } = req.params;
+    const sql = "SELECT * FROM health_data WHERE date(epoch, 'unixepoch') = ?";
+    db.all(sql, [date], (err, rows) => {
+        if (err) {
+            return res.status(500).json({ error: err.message })
+        }
+        return res.json(rows);
+    });
+});
+
+// Endpoint 4: get a specific health metric for a patient within a date range
+app.get('/patient/:cpf/health_metric/:metric/range/:start/:end', (req, res) => {
+    const { cpf, metric, start, end } = req.params;
+    const sql = `SELECT ${metric} FROM health_data WHERE cpf = ? AND date(epoch, 'unixepoch') BETWEEN ? AND ? ORDER BY epoch`;
+    db.all(sql, [cpf, start, end], (err, rows) => {
+        if (err) {
+            return res.status(500).json({ error: err.message });
+        }
+        return res.json(rows);
+    });
+});
+
+// Endpoint 5: get the latest value of a health metric for a patient within a value range 
+app.get('/patient/:cpf/health_metric/:metric/value-range/:min/:max', (req, res) => {
+    const { cpf, metric, min, max } = req.params;
+    const sql = `SELECT ${metric} FROM health_data WHERE cpf = ? AND ${metric} BETWEEN ? AND ? ORDER BY epoch DESC LIMIT 1`;
+    db.get(sql, [cpf, min, max], (err, row) => {
+        if (err) {
+            return res.status(500).json({ error: err.message });
+        }
+        return res.json(row);
+    });
+});
 
 
 app.listen(port, () => {
