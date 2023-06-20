@@ -1,12 +1,12 @@
-const express = require('express')
-const fs = require('fs')
-const bodyParser = require('body-parser')
-const sqlite3 = require('sqlite3').verbose()
-const app = express()
-const port = 3000
-const path = require('path')
+const express = require('express');
+const fs = require('fs');
+const bodyParser = require('body-parser');
+const sqlite3 = require('sqlite3').verbose();
+const app = express();
+const port = 3000;
+const path = require('path');
 
-app.use(bodyParser.json())
+app.use(bodyParser.json());
 
 // Set up in-memory SQLite database
 const db = new sqlite3.Database(':memory:');
@@ -58,6 +58,32 @@ db.serialize(() => {
 });
 
 populateDatabase()
+
+// Define your endpoints here
+
+// Endpoint 1: Get the latest value of a health metric (cardiac or pulmonary) for a specific patient
+app.get('/patient/:cpf/health_metric/:metric', (req, res) => {
+    const { cpf, metric } = req.params;
+    const sql = `SELECT ${metric} FROM health_data WHERE cpf = ? ORDER BY epoch DESC LIMIT 1`;
+    db.get(sql, [cpf], (err, row) => {
+        if (err) {
+            return res.status(500).json({ error: err.message });
+        }
+        return res.json(row);
+    });
+});
+
+// Endpoint 2: Get the latest values of all health metrics for a specific patient
+app.get('/patient/:cpf/latest_metrics', (req, res) => {
+    const { cpf } = req.params;
+    const sql = "SELECT * FROM health_data WHERE cpf = ? ORDER BY epoch DESC LIMIT 1"
+    db.get(sql, [cpf], (err, row) => {
+        if (err) {
+            return res.status(500).json({ error: err.message })
+        }
+        return res.json(row)
+    })
+})
 
 
 app.listen(port, () => {
