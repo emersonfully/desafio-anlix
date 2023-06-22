@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Health Dashboard</title>
+    <link rel="stylesheet" href="style/style.css">
+
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons+Outlined" rel="stylesheet">
+</head>
+
+<body>
+    <div class="grid-container">
+
+        <!-- Header -->
+        <header class="header">
+            <div class="menu-icon" onclick="openSidebar()">
+                <span class="material-icons-outlined">menu</span>
+            </div>
+            <div class="header-left">
+                <input type="text" id="header-searchBar" placeholder="Type here....">
+                <button class="search-button">
+                    <span class="material-icons-outlined">search</span>
+                </button>
+            </div>
+            <div class="header-right">
+                <span class="material-icons-outlined">notifications</span>
+                <span class="material-icons-outlined">email</span>
+                <span class="material-icons-outlined">account_circle</span>
+            </div>
+        </header>
+
+        <!-- Sidebar -->
+        <aside id="sidebar">
+            <div class="sidebar-title">
+                <div class="sidebar-brand">
+                    <span class="material-icons-outlined">local_hospital</span>
+                    <span>Hospital</span>
+                </div>
+                <span class="material-icons-outlined" onclick="closeSidebar()">close</span>
+            </div>
+
+            <ul class="sidebar-list">
+                <li class="sidebar-list-item">
+                    <a href="#" target="_blank">
+                        <span class="material-icons-outlined">dashboard</span> Dashboard
+                    </a>
+                </li>
+                <li class="sidebar-list-item">
+                    <a href="#" target="_blank">
+                        <span class="material-icons-outlined">groups</span> Patients
+                    </a>
+                </li>
+                <li class="sidebar-list-item">
+                    <a href="#" target="_blank">
+                        <span class="material-icons-outlined">fact_check</span> Inventory
+                    </a>
+                </li>
+                <li class="sidebar-list-item">
+                    <a href="#" target="_blank">
+                        <span class="material-icons-outlined">poll</span> Reports
+                    </a>
+                </li>
+                <li class="sidebar-list-item">
+                    <a href="#" target="_blank">
+                        <span class="material-icons-outlined">settings</span> Settings
+                    </a>
+                </li>
+            </ul>
+        </aside>
+
+        <!-- Main -->
+        <main class="main-container">
+            <div class="main-title">
+                <h2>Dashboard</h2>
+            </div>
+
+            <div>
+                <table id="resultsTable">
+                    <thead>
+                        <tr>
+                            <th>CPF</th>
+                            <th>Name</th>
+                            <th>Data de Nascimento</th>
+                        </tr>
+                    </thead>
+                    <tbody id="resultsBody"></tbody>
+                </table>
+            </div>
+
+
+
+            <div class="charts">
+
+                <div class="charts-card">
+                    <h2 class="chart-title">Indice Cardiaco</h2>
+                    <div id="bar-chart"></div>
+                </div>
+
+                <div class="charts-card">
+                    <h2 class="chart-title">Indice Pulmonar</h2>
+                    <div id="area-chart"></div>
+                </div>
+
+            </div>
+        </main>
+
+    </div>
+
+    <script src="js/script.js"></script>
+</body>
+
+</html>
