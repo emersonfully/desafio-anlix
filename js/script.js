@@ -32,18 +32,15 @@ function fetchPatients() {
 
             data.forEach(patient => {
                 const row = document.createElement('tr');
-                const cpfCell = document.createElement('td');
-                const nameCell = document.createElement('td');
-                const birthdayCell = document.createElement('td')
 
-                cpfCell.textContent = patient.cpf;
-                nameCell.textContent = patient.nome;
-                birthdayCell.textContent = patient.data_nasc
+                const html = `
+                    <td>${patient.cpf}</td>
+                    <td>${patient.nome}</td>
+                    <td>${patient.data_nasc}</td>
+                    <td>${patient.tipo_sanguineo}</td>
 
-                row.appendChild(cpfCell);
-                row.appendChild(nameCell);
-                row.appendChild(birthdayCell);
-
+                `
+                row.innerHTML = html
                 resultsBody.appendChild(row)
             });
         })
