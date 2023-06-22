@@ -13,6 +13,10 @@
 <body>
     <div class="grid-container">
 
+        <div class="modal-overlay" id="modalOverlay" style="display: none;">
+            <div class="modal-content" id="modalContent"></div>
+        </div>
+
         <!-- Header -->
         <header class="header">
             <div class="menu-icon" onclick="openSidebar()">
@@ -35,7 +39,7 @@
         <aside id="sidebar">
             <div class="sidebar-title">
                 <div class="sidebar-brand">
-                    <span class="material-icons-outlined">local_hospital</span>
+                    <span class="material-icons-outlined">medical_services</span>
                     <span>Hospital</span>
                 </div>
                 <span class="material-icons-outlined" onclick="closeSidebar()">close</span>
