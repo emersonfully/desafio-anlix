@@ -1,21 +1,6 @@
 import { patientCellTemplate, patientModalTemplate } from './templates/index.js'
 
-let sidebarOpen = false;
-const sidebar = document.getElementById("sidebar");
 
-function openSidebar() {
-    if (!sidebarOpen) {
-        sidebar.classList.add("sidebar-responsive");
-        sidebarOpen = true;
-    }
-}
-
-function closeSidebar() {
-    if (sidebarOpen) {
-        sidebar.classList.remove("sidebar-responsive");
-        sidebarOpen = false;
-    }
-}
 
 const searchInput = document.getElementById('header-searchBar')
 const resultsBody = document.getElementById('resultsBody')
