@@ -24,7 +24,7 @@ const modalOverlay = document.getElementById('modalOverlay');
 const modalContent = document.getElementById('modalContent');
 
 let currentPage = 1;
-const itemsPerPage = 10;
+const itemsPerPage = 12;
 
 searchInput.addEventListener('input', fetchPatients)
 
@@ -68,6 +68,8 @@ function fetchPatients() {
         })
 }
 
+// Table Pagination
+
 function renderPaginationButtons(totalPages) {
     pagination.innerHTML = '';
 
@@ -98,6 +100,7 @@ function renderPaginationButtons(totalPages) {
     pagination.appendChild(nextButton);
 }
 
+// Modal 
 function handlePatientLinkClick(event) {
     const patientLink = event.target.closest('.patient-link');
     if (patientLink) {
@@ -140,6 +143,7 @@ function handlePatientLinkClick(event) {
                         <li><strong>Cor:</strong> ${patient.cor}</li>
                         
                     </ul>
+                    <canvas id="graphicContainer"></canvas>
                     <button id="closeModalBtn">Close</button>
                 `;
 
