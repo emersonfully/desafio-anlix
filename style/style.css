@@ -140,7 +140,7 @@ li {
 }
 
 .sidebar-list {
-  padding: 0;
+  padding-left: 10px;
   margin-top: 15px;
   list-style-type: none;
 }
@@ -148,6 +148,12 @@ li {
 .sidebar-list-item {
   padding: 20px;
   font-size: 18px;
+}
+
+#sidebarPatients {
+  background-color: white;
+  color: blue !important;
+  border-radius: 18px 0 0 18px;
 }
 
 .sidebar-list-item:hover {
@@ -175,14 +181,37 @@ li {
 /* ---------- MAIN ---------- */
 
 table {
+  border-radius: 8px;
   border-collapse: collapse;
-  width: 100%;
+  width: 85%;
 }
 
 th,
 td {
   border: 1px solid black;
   padding: 8px;
+}
+
+#pagination {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-top: 10px;
+  text-align: center;
+}
+
+#pagination > button {
+  width: 80px;
+  text-transform: capitalize;
+  padding: 5px;
+  background-color: white;
+  border-radius: 8px;
+  border: 1px solid gray;
+  cursor: pointer;
+}
+
+#pagination > button:hover {
+  background-color: rgb(238, 238, 238);
 }
 
 input[type="text"] {

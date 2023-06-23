@@ -19,8 +19,12 @@ function closeSidebar() {
 
 const searchInput = document.getElementById('header-searchBar')
 const resultsBody = document.getElementById('resultsBody')
+const pagination = document.getElementById('pagination')
 const modalOverlay = document.getElementById('modalOverlay');
 const modalContent = document.getElementById('modalContent');
+
+let currentPage = 1;
+const itemsPerPage = 10;
 
 searchInput.addEventListener('input', fetchPatients)
 
@@ -32,7 +36,14 @@ function fetchPatients() {
         .then(data => {
             resultsBody.innerHTML = ''
 
-            data.forEach(patient => {
+            // Calculate pagination information
+            const totalItems = data.length;
+            const totalPages = Math.ceil(totalItems / itemsPerPage);
+            const startIndex = (currentPage - 1) * itemsPerPage;
+            const endIndex = startIndex + itemsPerPage;
+            const currentItems = data.slice(startIndex, endIndex);
+
+            currentItems.forEach(patient => {
                 const row = document.createElement('tr');
 
                 const html = `
@@ -46,12 +57,45 @@ function fetchPatients() {
                 resultsBody.appendChild(row)
             });
 
+            // Render pagination navigation buttons
+            renderPaginationButtons(totalPages)
+
             // Add event listener to the parent element
             resultsBody.addEventListener('click', handlePatientLinkClick);
         })
         .catch(err => {
             console.error('Error: ', err)
         })
+}
+
+function renderPaginationButtons(totalPages) {
+    pagination.innerHTML = '';
+
+    const previousButton = document.createElement('button');
+    previousButton.innerText = 'Previous';
+    previousButton.disabled = currentPage === 1;
+    previousButton.addEventListener('click', () => {
+        if (currentPage > 1) {
+            currentPage--;
+            fetchPatients();
+        }
+    });
+    pagination.appendChild(previousButton);
+
+    const pageNumberSpan = document.createElement('span');
+    pageNumberSpan.innerText = `Page ${currentPage} of ${totalPages || 1}`;
+    pagination.appendChild(pageNumberSpan);
+
+    const nextButton = document.createElement('button');
+    nextButton.innerText = 'Next';
+    nextButton.disabled = currentPage === totalPages;
+    nextButton.addEventListener('click', () => {
+        if (currentPage < totalPages) {
+            currentPage++;
+            fetchPatients();
+        }
+    });
+    pagination.appendChild(nextButton);
 }
 
 function handlePatientLinkClick(event) {
@@ -73,7 +117,7 @@ function handlePatientLinkClick(event) {
                     <span class="material-icons-outlined">
                     medical_information
                 </span>
-                    <span class="patientInformation">Patient Information</span>
+                    <span class="patientInformation">Informação sobre o Paciente</span>
                 </div>
                     <ul>
                         <li><strong>Name:</strong> ${patient.nome}</li>
@@ -119,3 +163,4 @@ function closeModal() {
     // Hide the modal overlay
     modalOverlay.style.display = 'none';
 }
+
